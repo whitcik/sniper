@@ -15,18 +15,24 @@ export default class Game extends PureComponent {
       targetSize: 10,
       reactionTime: 0
     }
+    this.time = null;
   }
 
   handleStart = () => {
     this.setState({
       isGameStarted: true
     });
+    this.time = new Date().getTime();
   }
 
   handleSuccess = () => {
+    const newTime = new Date().getTime();
     this.setState({
-      success: this.state.success + 1
+      success: this.state.success + 1,
+      reactionTime: newTime - this.time
     });
+
+    this.time = newTime;
   }
 
   handleFail = () => {

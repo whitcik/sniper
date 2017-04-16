@@ -36,7 +36,6 @@ export default class Target extends PureComponent {
   }
 
   render() {
-    const { handleSuccess } = this.props;
     const { styles } = this.state;
 
     return (
