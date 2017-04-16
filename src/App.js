@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Game from './game/Game';
 import './App.scss';
 
 class App extends Component {
@@ -6,11 +7,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Starter Sniper</h2>
+          <h2>Sniper</h2>
         </div>
-        <p className="App-intro">
-          Start
-        </p>
+        <Game />
       </div>
     );
   }

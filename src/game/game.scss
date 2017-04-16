@@ -1,0 +1,11 @@
+#game-map{
+  background-color: #808080;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  .target {
+    position: absolute;
+    background-color: red;
+  }
+}
