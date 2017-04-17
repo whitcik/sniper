@@ -3,7 +3,7 @@ import actionTypes from '../constants/actionTypes';
 const initialGame = {
   isGameStarted: false,
   shots: 0,
-  reactionTimes: {},
+  reactionTimes: [],
   gameHistory: {}
 };
 
@@ -24,10 +24,10 @@ export default(game = initialGame, payload) => {
       return {
         ...game,
         shots: game.shots + 1,
-        reactionTimes: {
+        reactionTimes: [
           ...game.reactionTimes,
-          [game.shots + 1]: payload.reactionTime
-        }
+          payload.reactionTime
+        ]
       }
     default:
       return game;

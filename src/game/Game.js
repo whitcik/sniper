@@ -37,7 +37,7 @@ class Game extends PureComponent {
 
   render() {
     console.log('Game', this.props);
-    const { isGameStarted } = this.props;
+    const { isGameStarted, reactionTimes } = this.props;
 
     return (
       <div className="game-container clearfix" style={{width: GAME_WIDTH + STATS_WIDTH}}>
@@ -45,7 +45,7 @@ class Game extends PureComponent {
           {!isGameStarted && <button onClick={this.handleStart}>Start Game</button>}
           {isGameStarted && <Target handleShot={this.handleShot} />}
         </div>
-        <GameStats />
+        <GameStats reactionTimes={reactionTimes} />
       </div>
     );
   }
@@ -54,7 +54,8 @@ class Game extends PureComponent {
 function mapStateToProps(state) {
   return {
     isGameStarted: state.game.isGameStarted,
-    shots: state.game.shots
+    shots: state.game.shots,
+    reactionTimes: state.game.reactionTimes
   };
 }
 
