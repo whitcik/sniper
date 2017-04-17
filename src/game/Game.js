@@ -11,7 +11,6 @@ export default class Game extends PureComponent {
     this.state = {
       isGameStarted: false,
       success: 0,
-      fail: 0,
       targetSize: 10,
       reactionTime: 0
     }
@@ -33,12 +32,6 @@ export default class Game extends PureComponent {
     });
 
     this.time = newTime;
-  }
-
-  handleFail = () => {
-    this.setState({
-      fail: this.state.success + 1
-    });
   }
 
   render() {
