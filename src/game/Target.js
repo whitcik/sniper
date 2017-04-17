@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { WIDTH, HEIGHT } from '../constants/gameConsts';
+import { GAME_WIDTH, GAME_HEIGHT } from '../constants/gameConsts';
 import './game.scss';
 
 
@@ -15,9 +15,8 @@ export default class Target extends PureComponent {
 
   generateStylesForTarget(){
     const targetSize = this.state ? this.state.targetSize : 100;
-    const left = Math.floor((Math.random() * (WIDTH - targetSize)) + 0); 
-    const top = Math.floor((Math.random() * (HEIGHT - targetSize)) + 0); 
-    console.log('test', left, top);
+    const left = Math.floor((Math.random() * (GAME_WIDTH - targetSize)) + 0);
+    const top = Math.floor((Math.random() * (GAME_HEIGHT - targetSize)) + 0);
     return {
       width: targetSize,
       height: targetSize,

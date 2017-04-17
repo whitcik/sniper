@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
-import { WIDTH, HEIGHT } from '../constants/gameConsts';
+import { GAME_WIDTH, GAME_HEIGHT, STATS_WIDTH } from '../constants/gameConsts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startGame, shot, stopGame } from '../actions/gameActions';
 import './game.scss';
 import Target from './Target';
+import GameStats from './GameStats';
 
 
 class Game extends PureComponent {
@@ -36,13 +37,15 @@ class Game extends PureComponent {
 
   render() {
     console.log('Game', this.props);
-    const { isGameStarted, reactionTime, shots } = this.props;
+    const { isGameStarted } = this.props;
 
     return (
-      <div id="game-map" style={{width: WIDTH, height: HEIGHT}}>
-        {!isGameStarted && <button onClick={this.handleStart}>Start Game</button>}
-        <span>Points: {shots}</span> <span>Reaction Time: {reactionTime}</span>
-        {isGameStarted && <Target handleShot={this.handleShot} />}
+      <div className="game-container clearfix" style={{width: GAME_WIDTH + STATS_WIDTH}}>
+        <div id="game-map" style={{width: GAME_WIDTH, height: GAME_HEIGHT}}>
+          {!isGameStarted && <button onClick={this.handleStart}>Start Game</button>}
+          {isGameStarted && <Target handleShot={this.handleShot} />}
+        </div>
+        <GameStats />
       </div>
     );
   }
@@ -51,8 +54,7 @@ class Game extends PureComponent {
 function mapStateToProps(state) {
   return {
     isGameStarted: state.game.isGameStarted,
-    shots: state.game.shots,
-    reactionTime: state.game.reactionTimes[state.game.shots]
+    shots: state.game.shots
   };
 }
 

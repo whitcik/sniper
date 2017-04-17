@@ -1,11 +1,17 @@
-#game-map{
-  background-color: #808080;
+.game-container{
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  .target {
-    position: absolute;
-    background-color: red;
+  #game-map{
+    background-color: #808080;
+    position: relative;
+    float: left;
+    .target {
+      position: absolute;
+      background-color: red;
+    }
+  }
+  .game-stats{
+    float: left;
   }
 }

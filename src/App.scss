@@ -7,6 +7,11 @@
   padding: 20px;
   color: white;
 }
+.clearfix::after {
+    content:"";
+    display:block;
+    clear:both;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
