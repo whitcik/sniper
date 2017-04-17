@@ -1,48 +1,65 @@
 import React, { PureComponent } from 'react';
 import { WIDTH, HEIGHT } from '../constants/gameConsts';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { startGame, shot, stopGame } from '../actions/gameActions';
 import './game.scss';
 import Target from './Target';
 
 
-export default class Game extends PureComponent {
+class Game extends PureComponent {
   constructor() {
-    
     super();
-    this.state = {
-      isGameStarted: false,
-      success: 0,
-      targetSize: 10,
-      reactionTime: 0
-    }
     this.time = null;
   }
 
   handleStart = () => {
-    this.setState({
-      isGameStarted: true
-    });
+    this.props.actions.startGame();
     this.time = new Date().getTime();
   }
 
-  handleSuccess = () => {
+  handleShot = () => {
     const newTime = new Date().getTime();
-    this.setState({
-      success: this.state.success + 1,
-      reactionTime: newTime - this.time
-    });
+    const reactionTime = newTime - this.time;
 
+    this.props.actions.shot(reactionTime);
+    if(this.isLastShot()){
+      this.props.actions.stopGame();
+      this.time = null;
+    }
     this.time = newTime;
   }
 
+  isLastShot() {
+    return this.props.shots === 9;
+  }
+
   render() {
-    console.log('test', this.state);
-    const { success, reactionTime, isGameStarted } = this.state;
+    console.log('Game', this.props);
+    const { isGameStarted, reactionTime, shots } = this.props;
+
     return (
       <div id="game-map" style={{width: WIDTH, height: HEIGHT}}>
         {!isGameStarted && <button onClick={this.handleStart}>Start Game</button>}
-        <span>Points: {success}</span> <span>Reaction Time: {reactionTime}</span>
-        {isGameStarted && <Target handleSuccess={this.handleSuccess} />}
+        <span>Points: {shots}</span> <span>Reaction Time: {reactionTime}</span>
+        {isGameStarted && <Target handleShot={this.handleShot} />}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isGameStarted: state.game.isGameStarted,
+    shots: state.game.shots,
+    reactionTime: state.game.reactionTimes[state.game.shots]
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ startGame, shot, stopGame }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -8,13 +8,13 @@ export default class Target extends PureComponent {
     
     super();
     this.state = {
-      targetSize: 10,
+      targetSize: 100,
       styles: this.generateStylesForTarget()
     };
   }
 
   generateStylesForTarget(){
-    const targetSize = this.state ? this.state.targetSize : 10;
+    const targetSize = this.state ? this.state.targetSize : 100;
     const left = Math.floor((Math.random() * (WIDTH - targetSize)) + 0); 
     const top = Math.floor((Math.random() * (HEIGHT - targetSize)) + 0); 
     console.log('test', left, top);
@@ -26,20 +26,20 @@ export default class Target extends PureComponent {
     }
   }
 
-  handleSuccess = () => {
+  handleShot = () => {
 
     this.setState({
       styles: this.generateStylesForTarget()
     });
 
-    this.props.handleSuccess();
+    this.props.handleShot();
   }
 
   render() {
     const { styles } = this.state;
 
     return (
-      <div style={styles} onClick={this.handleSuccess} className='target'></div>
+      <div style={styles} onClick={this.handleShot} className='target'></div>
     );
   }
 }
