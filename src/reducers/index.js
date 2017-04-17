@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 import game from './gameReducer';
+import history from './historyReducer';
 
 const rootReducer = combineReducers({
-    game
+    game,
+    history
 });
 export default rootReducer;

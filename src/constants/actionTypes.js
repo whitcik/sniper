@@ -1,5 +1,6 @@
 export default {
   START_GAME: 'START_GAME',
   STOP_GAME: 'STOP_GAME',
-  SHOT: 'SHOT'
+  SHOT: 'SHOT',
+  ADD_GAME_TO_HISTORY: 'ADD_GAME_TO_HISTORY'
 };
