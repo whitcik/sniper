@@ -6,6 +6,7 @@ import { startGame, shot, stopGame } from '../actions/gameActions';
 import './game.scss';
 import Target from './Target';
 import GameStats from './GameStats';
+import StartGameModal from './StartGameModal';
 
 
 class Game extends PureComponent {
@@ -42,7 +43,7 @@ class Game extends PureComponent {
     return (
       <div className="game-container clearfix" style={{width: GAME_WIDTH + STATS_WIDTH}}>
         <div id="game-map" style={{width: GAME_WIDTH, height: GAME_HEIGHT}}>
-          {!isGameStarted && <button onClick={this.handleStart}>Start Game</button>}
+          {!isGameStarted && <StartGameModal reactionTimes={reactionTimes} handleStart={this.handleStart} />}
           {isGameStarted && <Target handleShot={this.handleShot} />}
         </div>
         <GameStats reactionTimes={reactionTimes} />
