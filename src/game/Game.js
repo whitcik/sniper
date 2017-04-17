@@ -3,6 +3,7 @@ import { GAME_WIDTH, GAME_HEIGHT, STATS_WIDTH } from '../constants/gameConsts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startGame, shot, stopGame } from '../actions/gameActions';
+import { addGameToHistory } from '../actions/historyActions';
 import './game.scss';
 import Target from './Target';
 import GameStats from './GameStats';
@@ -21,12 +22,15 @@ class Game extends PureComponent {
   }
 
   handleShot = () => {
+    const { reactionTimes } = this.props;
     const newTime = new Date().getTime();
     const reactionTime = newTime - this.time;
 
     this.props.actions.shot(reactionTime);
     if(this.isLastShot()){
       this.props.actions.stopGame();
+      this.props.actions.addGameToHistory(reactionTimes);
+
       this.time = null;
     }
     this.time = newTime;
@@ -62,7 +66,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ startGame, shot, stopGame }, dispatch)
+    actions: bindActionCreators({ startGame, shot, stopGame, addGameToHistory }, dispatch)
   }
 }
 

@@ -12,7 +12,8 @@ export default(game = initialGame, payload) => {
     case actionTypes.START_GAME:
       return {
         ...game,
-        isGameStarted: true
+        isGameStarted: true,
+        reactionTimes: []
       };
     case actionTypes.STOP_GAME:
       return {
