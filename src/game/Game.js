@@ -3,7 +3,7 @@ import { GAME_WIDTH, GAME_HEIGHT, STATS_WIDTH } from '../constants/gameConsts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startGame, shot, stopGame } from '../actions/gameActions';
-import { addGameToHistory } from '../actions/historyActions';
+import { addGameToHistory, addBestReactionTime } from '../actions/historyActions';
 import './game.scss';
 import Target from './Target';
 import GameStats from './GameStats';
@@ -27,22 +27,33 @@ class Game extends PureComponent {
     const reactionTime = newTime - this.time;
 
     this.props.actions.shot(reactionTime);
+
+    if(this.isBestReaction(reactionTime)){
+      this.props.actions.addBestReactionTime(reactionTime);
+    }
+
     if(this.isLastShot()){
       this.props.actions.stopGame();
       this.props.actions.addGameToHistory(reactionTimes);
 
       this.time = null;
+    } else {
+      this.time = newTime;
     }
-    this.time = newTime;
   }
 
   isLastShot() {
     return this.props.shots === 9;
   }
 
+  isBestReaction(reactionTime) {
+    const { bestReaction } = this.props;
+    return bestReaction === null || bestReaction > reactionTime;
+  }
+
   render() {
     console.log('Game', this.props);
-    const { isGameStarted, reactionTimes } = this.props;
+    const { isGameStarted, reactionTimes, bestReaction } = this.props;
 
     return (
       <div className="game-container clearfix" style={{width: GAME_WIDTH + STATS_WIDTH}}>
@@ -50,7 +61,7 @@ class Game extends PureComponent {
           {!isGameStarted && <StartGameModal reactionTimes={reactionTimes} handleStart={this.handleStart} />}
           {isGameStarted && <Target handleShot={this.handleShot} />}
         </div>
-        <GameStats reactionTimes={reactionTimes} />
+        <GameStats reactionTimes={reactionTimes} bestReaction={bestReaction} />
       </div>
     );
   }
@@ -60,13 +71,14 @@ function mapStateToProps(state) {
   return {
     isGameStarted: state.game.isGameStarted,
     shots: state.game.shots,
-    reactionTimes: state.game.reactionTimes
+    reactionTimes: state.game.reactionTimes,
+    bestReaction: state.history.bestReaction
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ startGame, shot, stopGame, addGameToHistory }, dispatch)
+    actions: bindActionCreators({ startGame, shot, stopGame, addGameToHistory, addBestReactionTime }, dispatch)
   }
 }
 

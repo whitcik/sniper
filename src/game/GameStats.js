@@ -11,10 +11,12 @@ export default class GameStats extends PureComponent {
   }
 
   render() {
+    const { bestReaction } = this.props;
 
     return (
       <div className="game-stats" style={{width: STATS_WIDTH}}>
         <h2 className="game-stats__header">Stats</h2>
+        <div>Best reaction: {bestReaction}</div>
         <ol>
           {this.generateElements()}
         </ol>

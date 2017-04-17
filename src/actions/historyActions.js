@@ -6,3 +6,10 @@ export const addGameToHistory = (reactionTimes) => {
     reactionTimes
   }
 }
+
+export const addBestReactionTime = (bestReaction) => {
+  return {
+    type: actionTypes.ADD_BEST_REACTION_TIME,
+    bestReaction
+  }
+}

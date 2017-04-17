@@ -1,7 +1,7 @@
 import actionTypes from '../constants/actionTypes';
 
 const initialHistory = {
-  best: null,
+  bestReaction: null,
   gameHistory: {}
 };
 
@@ -15,6 +15,11 @@ export default(history = initialHistory, payload) => {
           [new Date().toISOString()]: payload.reactionTimes
         }
       };
+      case actionTypes.ADD_BEST_REACTION_TIME:
+        return {
+          ...history,
+          bestReaction: payload.bestReaction
+        }
     default:
       return history;
   }

@@ -34,10 +34,3 @@ export default(game = initialGame, payload) => {
       return game;
   }
 };
-
-/*
-gameHistory: {
-  ...game.gameHistory,
-  [new Date().toISOString()]: game.reactionTimes
-}
-*/
