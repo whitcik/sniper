@@ -3,8 +3,14 @@ import React from 'react';
 const StartStatsBox =({average, best}) => {
   return (
     <div className='start-game-modal__stats-box'>
-      <div>Best in round: {best}</div>
-      <div>Average: {average}</div>
+      <ul className='stats-box__list'>
+        <li className="stats-box__list__element">
+          Best in round: {best} ms
+        </li>
+        <li className="stats-box__list__element">
+          Average: {average} ms
+        </li>
+      </ul>
     </div>
   );
 }

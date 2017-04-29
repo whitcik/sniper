@@ -27,7 +27,9 @@ export default class StartGameModal extends PureComponent {
       <div className={classNames('start-game-modal', {'start-game-modal--stats': isStatsBox})}>
         <h3>Sniper</h3>
         {isStatsBox && <StartStatsBox best={this.getBestReaction()} average={this.getAverage()} />}
-        <button onClick={this.props.handleStart}>Start</button>
+        <button className='start-game-modal__start-button' onClick={this.props.handleStart}>
+          Start
+        </button>
       </div>
     );
   }
